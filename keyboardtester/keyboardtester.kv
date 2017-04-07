@@ -1,0 +1,72 @@
+
+
+<Manager>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    DeviceInfoScreen:
+    TapInputScreen:
+    SwipeInputScreen:
+    SuggestionInputScreen:
+
+<WrappingLabel@Label>:
+    text_size: self.width, None
+    size_hint_y: None
+    height: self.texture_size[1]
+    padding: dp(10), dp(4)
+    halign: 'left'
+    valign: 'middle'
+    color: 0, 0, 0, 1
+
+<Title@Label>:
+    padding: dp(10), dp(10)
+    font_size: sp(20)
+    color: 0, 0, 0, 1
+    text_size: self.width, None
+    size_hint_y: None
+    height: self.texture_size[1]
+    valign: 'middle'
+    halign: 'center'
+
+<HorizontalRule@Widget>:
+    size_hint_y: None
+    height: dp(2)
+    canvas:
+        Color:
+            rgba: 0.2, 0.2, 0.2, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<DeviceInfoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Title:
+            text: 'Device info:'
+        WrappingLabel:
+            text: 'brand: {}'.format(root.brand)
+        WrappingLabel:
+            text: 'device: {}'.format(root.device)
+        WrappingLabel:
+            text: 'manufacturer: {}'.format(root.manufacturer)
+        WrappingLabel:
+            text: 'model: {}'.format(root.model)
+        WrappingLabel:
+            text: 'product: {}'.format(root.product)
+        HorizontalRule:
+        Title:
+            text: 'Instructions'
+        WrappingLabel:
+            text: root.instruction_text
+        WrappingLabel:
+            text: root.no_output_text
+        WrappingLabel:
+            text: root.error_text
+        WrappingLabel:
+            text: root.unavailibility_text
+
+            
