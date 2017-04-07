@@ -1,3 +1,4 @@
+#:set button_bar_height dp(45)
 
 <ColouredButton>:
     background_down: (0.2, 0.6431, 0.8078, 1.)
@@ -22,7 +23,7 @@
     DeviceInfoScreen:
     TapInputScreen:
     SwipeInputScreen:
-    SuggestionInputScreen:
+    OtherInputScreen:
 
 <WrappingLabel@Label>:
     text_size: self.width, None
@@ -72,6 +73,8 @@
             text: 'model: {}'.format(root.model)
         # WrappingLabel:
         #     text: 'product: {}'.format(root.product)
+        Spacer:
+            height: dp(5)
         HorizontalRule:
         Title:
             text: 'Instructions'
@@ -95,4 +98,121 @@
                 size_hint_x: None
                 width: self.texture_size[0] * 2.5
                 font_size: sp(25)
+                on_release: app.root.current = 'tapinput'
+
+<TapInputScreen>:
+    name: 'tapinput'
+    BoxLayout:
+        orientation: 'vertical'
+        Widget:
+        Title:
+            text: 'Tap input'
+        WrappingLabel:
+            text: 'Please select the textinput below and enter the text \'[color=#000099]One two three four five[/color]\' by [color=#990000]tapping the keyboard buttons[/color].'
+            markup: True
+        WrappingLabel:
+            text: 'Do not use swipe input or autocomplete if possible.'
+        WrappingLabel:
+            text: 'If you don\'t see any input, or any letters do not work, continue entering the text as if the input were working.'
+        AnchorLayout:
+            size_hint_y: None
+            height: dp(40)
+            TextInput:
+                size_hint_x: 0.98
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: button_bar_height
+            ColouredButton:
+                background_color: 0.8, 0.4, 0.4, 0.8
+                text: 'skip'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.skip()
+            ColouredButton:
+                background_color: 0.4, 0.8, 0.4, 0.8
+                text: 'done'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.done()
             
+
+<SwipeInputScreen>:
+    name: 'swipeinput'
+    BoxLayout:
+        orientation: 'vertical'
+        Widget:
+        Title:
+            text: 'Swipe input'
+        WrappingLabel:
+            text: 'Please select the textinput below and enter the text \'[color=#000099]Six seven eight nine ten[/color]\' by [color=#990000]swiping the words[/color].'
+            markup: True
+        WrappingLabel:
+            text: 'If your keyboard does not support swipe input, please click \'[color=#990000]skip[/color]\'.'
+            markup: True
+        WrappingLabel:
+            text: 'If you don\'t see any input, please continue swiping the words, pressing the space key after each one.'
+        AnchorLayout:
+            size_hint_y: None
+            height: dp(40)
+            TextInput:
+                size_hint_x: 0.98
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: button_bar_height
+            ColouredButton:
+                background_color: 0.8, 0.4, 0.4, 0.8
+                text: 'skip'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.skip()
+            ColouredButton:
+                background_color: 0.4, 0.8, 0.4, 0.8
+                text: 'done'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.done()
+
+<OtherInputScreen>:
+    name: 'otherinput'
+    BoxLayout:
+        orientation: 'vertical'
+        Widget:
+        Title:
+            text: 'Other input'
+        WrappingLabel:
+            text: 'Please select the textinput below and enter the text \'[color=#000099]Eleven twelve thirteen fourteen fifteen[/color]\' using [color=#990000]any other input methods supported by your keyboard[/color].'
+            markup: True
+        WrappingLabel:
+            text: 'For instance: if your keyboard supports [color=#990000]autocompletion[/color], use it to select some of the words. If your keyboard supports [color=#990000]spelling correction[/color], spell some of the words wrong and use the keyboard to correct them.'
+            markup: True
+        WrappingLabel:
+            text: 'If your keyboard does not support any other input mechanisms, just choose \'[color=#990000]skip[/color]\'.'
+            markup: True
+        WrappingLabel:
+            text: 'If the text shown in the text input box is not what you input, just keep entering text as if it were correct.'
+        AnchorLayout:
+            size_hint_y: None
+            height: dp(40)
+            TextInput:
+                size_hint_x: 0.98
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: button_bar_height
+            ColouredButton:
+                background_color: 0.8, 0.4, 0.4, 0.8
+                text: 'skip'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.skip()
+            ColouredButton:
+                background_color: 0.4, 0.8, 0.4, 0.8
+                text: 'done'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.done()

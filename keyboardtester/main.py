@@ -59,22 +59,63 @@ class DeviceInfoScreen(Screen):
             self.model = Build.MODEL
             # self.product = Build.PRODUCT
 
-        App.get_running_app().log('Brand: {}'.format(self.brand))
-        App.get_running_app().log('Device: {}'.format(self.device))
-        App.get_running_app().log('Manufacturer: {}'.format(self.manufacturer))
-        App.get_running_app().log('Model: {}'.format(self.model))
-        App.get_running_app().log('Product: {}'.format(self.product))
+    def on_pre_enter(self):
+
+        App.get_running_app().log('SCREEN: device info')
+        
+        App.get_running_app().log('Brand: {}'.format(self.brand), prefix='  ')
+        # App.get_running_app().log('Device: {}'.format(self.device))
+        App.get_running_app().log('Manufacturer: {}'.format(self.manufacturer), prefix='  ')
+        App.get_running_app().log('Model: {}'.format(self.model), prefix='  ')
+        # App.get_running_app().log('Product: {}'.format(self.product))
 
 
 
 class TapInputScreen(Screen):
-    pass
+    def on_pre_enter(self):
+        App.get_running_app().log('SCREEN: tap input')
+
+    def skip(self):
+        App.get_running_app().log('Next: SKIP', prefix='  ')
+        self.next()
+
+    def done(self):
+        App.get_running_app().log('Next: DONE', prefix='  ')
+        self.next()
+
+    def next(self):
+        App.get_running_app().root.current = 'swipeinput'
+        
 
 class SwipeInputScreen(Screen):
-    pass
+    def on_pre_enter(self):
+        App.get_running_app().log('SCREEN: swipe input')
 
-class SuggestionInputScreen(Screen):
-    pass
+    def skip(self):
+        App.get_running_app().log('Next: SKIP', prefix='  ')
+        self.next()
+
+    def done(self):
+        App.get_running_app().log('Next: DONE', prefix='  ')
+        self.next()
+
+    def next(self):
+        App.get_running_app().root.current = 'otherinput'
+
+class OtherInputScreen(Screen):
+    def on_pre_enter(self):
+        App.get_running_app().log('SCREEN: other input')
+
+    def skip(self):
+        App.get_running_app().log('Next: SKIP', prefix='  ')
+        self.next()
+
+    def done(self):
+        App.get_running_app().log('Next: DONE', prefix='  ')
+        self.next()
+
+    def next(self):
+        App.get_running_app().root.current = 'otherinput'
 
 
 class KeyboardTesterApp(App):
@@ -86,9 +127,10 @@ class KeyboardTesterApp(App):
         if exists('keyboard_log.txt'):
             unlink('keyboard_log.txt')
 
-    def log(self, s, newline=True):
+    def log(self, s, newline=True, prefix=''):
         if newline and not s.endswith('\n'):
             s = s + '\n'
+        s = prefix + s
         with open('keyboard_log.txt', 'a') as fileh:
             fileh.write(s)
 
