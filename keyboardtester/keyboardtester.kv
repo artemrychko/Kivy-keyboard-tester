@@ -1,4 +1,15 @@
 
+<ColouredButton>:
+    background_down: (0.2, 0.6431, 0.8078, 1.)
+    background_normal: (0.4, 0.4, 0.4, 0.8)
+    radius: dp(5)
+    canvas.before:
+        Color:
+            rgba: self.background_normal if self.state == 'normal' else self.background_down
+        RoundedRectangle:
+            pos: self.x + self.padding, self.y + self.padding
+            size: self.width - 2*self.padding, self.height - 2*self.padding
+            radius: [(self.radius, self.radius) for _ in range(4)]
 
 <Manager>:
     canvas.before:
@@ -32,6 +43,9 @@
     valign: 'middle'
     halign: 'center'
 
+<Spacer@Widget>:
+    size_hint_y: None
+
 <HorizontalRule@Widget>:
     size_hint_y: None
     height: dp(2)
@@ -43,20 +57,21 @@
             size: self.size
 
 <DeviceInfoScreen>:
+    name: 'deviceinfo'
     BoxLayout:
         orientation: 'vertical'
         Title:
             text: 'Device info:'
         WrappingLabel:
             text: 'brand: {}'.format(root.brand)
-        WrappingLabel:
-            text: 'device: {}'.format(root.device)
+        # WrappingLabel:
+        #     text: 'device: {}'.format(root.device)
         WrappingLabel:
             text: 'manufacturer: {}'.format(root.manufacturer)
         WrappingLabel:
             text: 'model: {}'.format(root.model)
-        WrappingLabel:
-            text: 'product: {}'.format(root.product)
+        # WrappingLabel:
+        #     text: 'product: {}'.format(root.product)
         HorizontalRule:
         Title:
             text: 'Instructions'
@@ -68,5 +83,16 @@
             text: root.error_text
         WrappingLabel:
             text: root.unavailibility_text
-
+        Spacer:
+            height: dp(10)
+        AnchorLayout:
+            anchor_y: 'top'
+            ColouredButton:
+                padding: dp(5)
+                text: 'start'
+                size_hint_y: None
+                height: dp(55)
+                size_hint_x: None
+                width: self.texture_size[0] * 2.5
+                font_size: sp(25)
             
