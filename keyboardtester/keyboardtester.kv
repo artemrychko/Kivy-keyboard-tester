@@ -24,6 +24,7 @@
     TapInputScreen:
     SwipeInputScreen:
     OtherInputScreen:
+    FinalScreen:
 
 <WrappingLabel@Label>:
     text_size: self.width, None
@@ -149,7 +150,7 @@
             text: 'Please select the textinput below and enter the text \'[color=#000099]Six seven eight nine ten[/color]\' by [color=#990000]swiping the words[/color].'
             markup: True
         WrappingLabel:
-            text: 'If your keyboard does not support swipe input, please click \'[color=#990000]skip[/color]\'.'
+            text: 'If your keyboard does not support swipe input, please press \'[color=#990000]skip[/color]\'.'
             markup: True
         WrappingLabel:
             text: 'If you don\'t see any input, please continue swiping the words, pressing the space key after each one.'
@@ -216,3 +217,33 @@
                 font_size: sp(20)
                 padding: dp(5)
                 on_release: root.done()
+
+<FinalScreen>:
+    name: 'final'
+    BoxLayout:
+        orientation: 'vertical'
+        Title:
+            text: 'Almost done'
+        WrappingLabel:
+            text: 'Thank you for producing this debug information. There\'s one thing left to do: press \'send email\' below to return your keyboard log.'
+            markup: True
+        AnchorLayout:
+            size_hint_y: None
+            height: dp(55)
+            anchor_y: 'top'
+            ColouredButton:
+                padding: dp(5)
+                text: 'send email'
+                size_hint_x: None
+                width: self.texture_size[0] * 2.5
+                font_size: sp(25)
+                on_release: app.send_email()
+        WrappingLabel:
+            text: 'If you need to try again, just restart the app and follow the instructions.'
+        HorizontalRule:
+        WrappingLabel:
+            text: 'If you are interested, the log that will be reported is:'
+        ScrollLabel:
+            text: 'ars arst arst arst arstarstarst arst arst ars ' * 100
+            color: (1, 0, 0, 1)
+
