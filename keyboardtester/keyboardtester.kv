@@ -24,6 +24,7 @@
     TapInputScreen:
     SwipeInputScreen:
     OtherInputScreen:
+    AnyProblemsScreen:
     FinalScreen:
 
 <WrappingLabel@Label>:
@@ -103,6 +104,7 @@
 
 <TapInputScreen>:
     name: 'tapinput'
+    next_screen: 'swipeinput'
     BoxLayout:
         orientation: 'vertical'
         Widget:
@@ -141,6 +143,7 @@
 
 <SwipeInputScreen>:
     name: 'swipeinput'
+    next_screen: 'otherinput'
     BoxLayout:
         orientation: 'vertical'
         Widget:
@@ -179,6 +182,7 @@
 
 <OtherInputScreen>:
     name: 'otherinput'
+    next_screen: 'anyproblems'
     BoxLayout:
         orientation: 'vertical'
         Widget:
@@ -217,6 +221,41 @@
                 font_size: sp(20)
                 padding: dp(5)
                 on_release: root.done()
+
+<AnyProblemsScreen>:
+    name: 'anyproblems'
+    next_screen: 'final'
+    BoxLayout:
+        orientation: 'vertical'
+        Title:
+            text: 'Any problems?'
+        WrappingLabel:
+            text: 'Did you encounter any input problems on any of the previous screens, such as text not being etered or autocompletion options not appearing?'
+        WrappingLabel:
+            text: 'Even if everything worked fine, it\'s useful to continue to the final page and submit your log!'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: cb1.height
+            ColouredButton:
+                id: cb1
+                background_normal: 0.4, 0.4, 0.4, 0.8
+                text: 'something went wrong'
+                halign: 'center'
+                valign: 'middle'
+                text_size: 0.9 * self.width, None
+                size_hint_y: None
+                height: max((dp(45), 1.4 * self.texture_size[1]))
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.some_problems()
+            ColouredButton:
+                background_normal: 0.4, 0.4, 0.4, 0.8
+                text: 'no problems'
+                font_size: sp(20)
+                padding: dp(5)
+                on_release: root.no_problems()
+        Widget:
 
 <FinalScreen>:
     name: 'final'

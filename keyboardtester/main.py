@@ -96,7 +96,24 @@ class ColouredButton(ButtonBehavior, Label):
 class Manager(ScreenManager):
     pass
 
-class DeviceInfoScreen(Screen):
+class OrderedScreen(Screen):
+    next_screen = StringProperty()
+
+    def on_pre_enter(self):
+        App.get_running_app().log('SCREEN: {}'.format(self.name))
+
+    def skip(self):
+        App.get_running_app().log('Result: SKIP', prefix='  ')
+        self.next()
+
+    def done(self):
+        App.get_running_app().log('Result: DONE', prefix='  ')
+        self.next()
+
+    def next(self):
+        App.get_running_app().root.current = self.next_screen
+
+class DeviceInfoScreen(OrderedScreen):
     brand = StringProperty('NOT DETECTED')
     # device = StringProperty('NOT DETECTED')
     manufacturer = StringProperty('NOT DETECTED')
@@ -119,6 +136,8 @@ class DeviceInfoScreen(Screen):
     def __init__(self, *args, **kwargs):
         super(DeviceInfoScreen, self).__init__(*args, **kwargs)
 
+        self.name = 'deviceinfo'
+
         if platform == 'android':
             Build = autoclass('android.os.Build')
             self.brand = Build.BRAND
@@ -128,13 +147,12 @@ class DeviceInfoScreen(Screen):
             # self.product = Build.PRODUCT
 
     def on_pre_enter(self):
+        super(DeviceInfoScreen, self).on_pre_enter()
 
-        App.get_running_app().log('SCREEN: device info')
-        
-        App.get_running_app().log('Brand: {}'.format(self.brand), prefix='  ')
+        App.get_running_app().log('brand: {}'.format(self.brand), prefix='  ')
         # App.get_running_app().log('Device: {}'.format(self.device))
-        App.get_running_app().log('Manufacturer: {}'.format(self.manufacturer), prefix='  ')
-        App.get_running_app().log('Model: {}'.format(self.model), prefix='  ')
+        App.get_running_app().log('manufacturer: {}'.format(self.manufacturer), prefix='  ')
+        App.get_running_app().log('model: {}'.format(self.model), prefix='  ')
         # App.get_running_app().log('Product: {}'.format(self.product))
 
         App.get_running_app().body_text = (
@@ -143,57 +161,29 @@ class DeviceInfoScreen(Screen):
 
 
 
-class TapInputScreen(Screen):
-    def on_pre_enter(self):
-        App.get_running_app().log('SCREEN: tap input')
+class TapInputScreen(OrderedScreen):
+    pass
 
-    def skip(self):
-        App.get_running_app().log('Result: SKIP', prefix='  ')
+class SwipeInputScreen(OrderedScreen):
+    pass
+
+class OtherInputScreen(OrderedScreen):
+    pass
+
+class AnyProblemsScreen(OrderedScreen):
+    def some_problems(self):
+        App.get_running_app().log('problems: yes', prefix='  ')
         self.next()
 
-    def done(self):
-        App.get_running_app().log('Result: DONE', prefix='  ')
+    def no_problems(self):
+        App.get_running_app().log('problems: no', prefix='  ')
         self.next()
 
-    def next(self):
-        App.get_running_app().root.current = 'swipeinput'
-        
-
-class SwipeInputScreen(Screen):
-    def on_pre_enter(self):
-        App.get_running_app().log('SCREEN: swipe input')
-
-    def skip(self):
-        App.get_running_app().log('Result: SKIP', prefix='  ')
-        self.next()
-
-    def done(self):
-        App.get_running_app().log('Result: DONE', prefix='  ')
-        self.next()
-
-    def next(self):
-        App.get_running_app().root.current = 'otherinput'
-
-class OtherInputScreen(Screen):
-    def on_pre_enter(self):
-        App.get_running_app().log('SCREEN: other input')
-
-    def skip(self):
-        App.get_running_app().log('Result: SKIP', prefix='  ')
-        self.next()
-
-    def done(self):
-        App.get_running_app().log('Result: DONE', prefix='  ')
-        self.next()
-
-    def next(self):
-        App.get_running_app().root.current = 'final'
-
-class FinalScreen(Screen):
+class FinalScreen(OrderedScreen):
     file_text = StringProperty()
 
     def on_pre_enter(self):
-        App.get_running_app().log('SCREEN: final')
+        super(FinalScreen, self).on_pre_enter()
 
         with open(filename, 'r') as fileh:
             self.file_text = fileh.read()
