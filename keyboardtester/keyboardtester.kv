@@ -98,7 +98,7 @@
                 height: dp(55)
                 size_hint_x: None
                 width: self.texture_size[0] * 2.5
-                font_size: sp(25)
+                font_size: sp(20)
                 on_release: app.root.current = 'tapinput'
 
 <TapInputScreen>:
@@ -109,7 +109,7 @@
         Title:
             text: 'Tap input'
         WrappingLabel:
-            text: 'Please select the textinput below and enter the text \'[color=#000099]One two three four five[/color]\' by [color=#990000]tapping the keyboard buttons[/color].'
+            text: 'Please select the textinput below and enter the text \'[color=#000099]One two three four five[/color]\' by [color=#aa00aa]tapping the keyboard buttons[/color].'
             markup: True
         WrappingLabel:
             text: 'Do not use swipe input or autocomplete if possible.'
@@ -126,13 +126,13 @@
             size_hint_y: None
             height: button_bar_height
             ColouredButton:
-                background_color: 0.8, 0.4, 0.4, 0.8
+                background_normal: 0.7, 0.4, 0.4, 1
                 text: 'skip'
                 font_size: sp(20)
                 padding: dp(5)
                 on_release: root.skip()
             ColouredButton:
-                background_color: 0.4, 0.8, 0.4, 0.8
+                background_normal: 0.4, 0.7, 0.4, 1
                 text: 'done'
                 font_size: sp(20)
                 padding: dp(5)
@@ -147,7 +147,7 @@
         Title:
             text: 'Swipe input'
         WrappingLabel:
-            text: 'Please select the textinput below and enter the text \'[color=#000099]Six seven eight nine ten[/color]\' by [color=#990000]swiping the words[/color].'
+            text: 'Please select the textinput below and enter the text \'[color=#000099]Six seven eight nine ten[/color]\' by [color=#aa00aa]swiping the words[/color].'
             markup: True
         WrappingLabel:
             text: 'If your keyboard does not support swipe input, please press \'[color=#990000]skip[/color]\'.'
@@ -165,13 +165,13 @@
             size_hint_y: None
             height: button_bar_height
             ColouredButton:
-                background_color: 0.8, 0.4, 0.4, 0.8
+                background_normal: 0.7, 0.4, 0.4, 1
                 text: 'skip'
                 font_size: sp(20)
                 padding: dp(5)
                 on_release: root.skip()
             ColouredButton:
-                background_color: 0.4, 0.8, 0.4, 0.8
+                background_normal: 0.4, 0.7, 0.4, 1
                 text: 'done'
                 font_size: sp(20)
                 padding: dp(5)
@@ -185,13 +185,13 @@
         Title:
             text: 'Other input'
         WrappingLabel:
-            text: 'Please select the textinput below and enter the text \'[color=#000099]Eleven twelve thirteen fourteen fifteen[/color]\' using [color=#990000]any other input methods supported by your keyboard[/color].'
+            text: 'Please select the textinput below and enter the text \'[color=#000099]Eleven twelve thirteen fourteen fifteen[/color]\' using [color=#aa00aa]any other input methods supported by your keyboard[/color].'
             markup: True
         WrappingLabel:
-            text: 'For instance: if your keyboard supports [color=#990000]autocompletion[/color], use it to select some of the words. If your keyboard supports [color=#990000]spelling correction[/color], spell some of the words wrong and use the keyboard to correct them.'
+            text: 'For instance: if your keyboard supports [color=#aa00aa]autocompletion[/color], use it to select some of the words. If your keyboard supports [color=#aa00aa]spelling correction[/color], spell some of the words wrong and use the keyboard to correct them.'
             markup: True
         WrappingLabel:
-            text: 'If your keyboard does not support any other input mechanisms, just choose \'[color=#990000]skip[/color]\'.'
+            text: 'If your keyboard does not support any other input mechanisms, just choose \'[color=#aa00aa]skip[/color]\'.'
             markup: True
         WrappingLabel:
             text: 'If the text shown in the text input box is not what you input, just keep entering text as if it were correct.'
@@ -206,13 +206,13 @@
             size_hint_y: None
             height: button_bar_height
             ColouredButton:
-                background_color: 0.8, 0.4, 0.4, 0.8
+                background_normal: 0.7, 0.4, 0.4, 1
                 text: 'skip'
                 font_size: sp(20)
                 padding: dp(5)
                 on_release: root.skip()
             ColouredButton:
-                background_color: 0.4, 0.8, 0.4, 0.8
+                background_normal: 0.4, 0.7, 0.4, 1
                 text: 'done'
                 font_size: sp(20)
                 padding: dp(5)

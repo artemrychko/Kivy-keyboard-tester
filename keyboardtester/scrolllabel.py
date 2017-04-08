@@ -1,5 +1,6 @@
 from kivy.core.text import Label as CoreLabel
-from kivy.uix.recycleview import RecycleView
+# from kivy.uix.recycleview import RecycleView
+from recycleview import RecycleView
 from kivy.properties import (NumericProperty, StringProperty, OptionProperty,
                              BooleanProperty, AliasProperty)
 from kivy.uix.widget import Widget
