@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.label import Label
 from kivy.utils import platform
@@ -119,6 +119,12 @@ class OrderedScreen(Screen):
             self.textinput.focus = False
             self.textinput.text = ''
 
+    def add_widget(self, widget, **kwargs):
+        if len(self.children) == 0:
+            return super(OrderedScreen, self).add_widget(widget, **kwargs)
+        else:
+            return self.ids.container.add_widget(widget, **kwargs)
+
 class DeviceInfoScreen(OrderedScreen):
     brand = StringProperty('NOT DETECTED')
     # device = StringProperty('NOT DETECTED')
@@ -208,7 +214,9 @@ class KeyboardTesterApp(App):
         if self.root is not None:
             for screen in self.root.children:
                 screen.reset()
+            self.root.transition = SlideTransition(direction='right')
             self.root.current = 'deviceinfo'
+            self.root.transition = SlideTransition(direction='left')
 
     def reset_log(self):
         if exists(filename):

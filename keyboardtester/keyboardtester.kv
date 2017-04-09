@@ -1,5 +1,24 @@
 #:set button_bar_height dp(45)
 
+<OrderedScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(50)
+            Widget:
+            ColouredButton:
+                text: 'reset'
+                background_normal: (0.7, 0.4, 0.4, 1)
+                on_release: app.reset()
+                font_size: sp(20)
+                size_hint_x: None
+                padding: dp(5)
+                width: 2.0*self.texture_size[0]
+        FloatLayout:
+            id: container
+
 <ColouredButton>:
     background_down: (0.2, 0.6431, 0.8078, 1.)
     background_normal: (0.4, 0.4, 0.4, 0.8)
