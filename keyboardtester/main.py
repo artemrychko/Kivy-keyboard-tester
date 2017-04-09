@@ -6,7 +6,8 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.label import Label
 from kivy.utils import platform
 from kivy.properties import (StringProperty, ListProperty,
-                             NumericProperty, ObjectProperty)
+                             NumericProperty, ObjectProperty,
+                             BooleanProperty)
 
 from kivy.core.window import Window
 Window.softinput_mode = 'pan'
@@ -99,6 +100,10 @@ class Manager(ScreenManager):
 class OrderedScreen(Screen):
     next_screen = StringProperty()
     textinput = ObjectProperty()
+    show_reset = BooleanProperty(True)
+
+    screen_num = NumericProperty(0)
+    num_screens = NumericProperty(5)
 
     def on_pre_enter(self):
         App.get_running_app().log('SCREEN: {}'.format(self.name))
