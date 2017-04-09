@@ -6,7 +6,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.label import Label
 from kivy.utils import platform
 from kivy.properties import (StringProperty, ListProperty,
-                             NumericProperty)
+                             NumericProperty, ObjectProperty)
 
 from kivy.core.window import Window
 Window.softinput_mode = 'pan'
@@ -98,20 +98,26 @@ class Manager(ScreenManager):
 
 class OrderedScreen(Screen):
     next_screen = StringProperty()
+    textinput = ObjectProperty()
 
     def on_pre_enter(self):
         App.get_running_app().log('SCREEN: {}'.format(self.name))
 
     def skip(self):
-        App.get_running_app().log('Result: SKIP', prefix='  ')
+        App.get_running_app().log('result: SKIP', prefix='  ')
         self.next()
 
     def done(self):
-        App.get_running_app().log('Result: DONE', prefix='  ')
+        App.get_running_app().log('result: DONE', prefix='  ')
         self.next()
 
     def next(self):
         App.get_running_app().root.current = self.next_screen
+
+    def reset(self):
+        if self.textinput is not None:
+            self.textinput.focus = False
+            self.textinput.text = ''
 
 class DeviceInfoScreen(OrderedScreen):
     brand = StringProperty('NOT DETECTED')
@@ -193,8 +199,16 @@ class KeyboardTesterApp(App):
     body_text = StringProperty()
 
     def build(self):
+        Window.bind(on_keyboard=self.key_input)
         self.reset_log()
         return Manager()
+
+    def reset(self):
+        self.reset_log()
+        if self.root is not None:
+            for screen in self.root.children:
+                screen.reset()
+            self.root.current = 'deviceinfo'
 
     def reset_log(self):
         if exists(filename):
@@ -210,6 +224,14 @@ class KeyboardTesterApp(App):
     def send_email(self):
         send_email(self.body_text, abspath(filename))
 
+    def key_input(self, window, key, scancode, codepoint, modifier):
+        if key == 27:
+            if platform == 'android':
+                from jnius import autoclass
+                activity = autoclass('org.kivy.android.PythonActivity')
+                activity.moveTaskToBack(True)
+            return True
+        return False
 
 
 if __name__ == '__main__':
